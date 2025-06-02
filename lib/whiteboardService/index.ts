@@ -58,7 +58,7 @@ const whiteboardService = {
         const result = await packProject();
         if (result) {
             // Extract the actual text content from PackResult
-            const codebaseText = result.toString()
+            const codebaseText = JSON.stringify(result)
             const canvas = await whiteboardService.getWhiteboardRaw(codebaseText);
             console.log(JSON.stringify(canvas, null, 2));
             return canvas;

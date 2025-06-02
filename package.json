@@ -1,25 +1,19 @@
 {
   "name": "iron-man",
-  "version": "0.1.0",
+  "module": "index.ts",
+  "type": "module",
   "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   },
   "dependencies": {
-    "next": "15.3.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "@ai-sdk/google": "^1.2.18",
+    "@types/express": "^5.0.2",
+    "ai": "^4.3.16",
+    "express": "^5.1.0",
     "repomix": "^0.3.8"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "tailwindcss": "^4",
-    "typescript": "^5"
   }
 }

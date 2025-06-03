@@ -8,15 +8,17 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./bin",
-    "rootDir": "./src",
+    "rootDir": "./",
     "declaration": false,
     "sourceMap": false
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "index.ts"
   ],
   "exclude": [
     "node_modules",
-    "bin"
+    "bin",
+    "src/frontend/**/*"
   ]
 }

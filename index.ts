@@ -4,8 +4,8 @@ import * as dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import whiteboardService from './src/lib/services/whiteboardService';
-import { startServer } from './src/lib/server';
+import whiteboardService from './src/lib/services/whiteboardService/index.js';
+import { startServer } from './src/lib/server.js';
 
 // Simple CLI argument parsing
 function parseArgs() {

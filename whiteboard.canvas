@@ -7,67 +7,75 @@
       "y": 100,
       "width": 200,
       "height": 100,
-      "url": "https://nextjs.org",
-      "label": "Next.js application"
+      "label": "Frontend (React)"
     },
     {
-      "id": "server",
+      "id": "backend",
       "type": "group",
       "x": 400,
       "y": 100,
       "width": 200,
-      "height": 80,
-      "url": "https://expressjs.com",
-      "label": "Express server"
+      "height": 100,
+      "label": "Backend (Node.js)"
     },
     {
-      "id": "frontend_page",
+      "id": "frontend_index_tsx",
       "type": "file",
       "x": 125,
       "y": 150,
       "width": 150,
       "height": 50,
-      "text": "Main Page",
-      "url": "frontend/src/app/page.tsx"
+      "text": "index.tsx",
+      "url": "src/frontend/src/index.tsx"
     },
     {
-      "id": "frontend_layout",
+      "id": "frontend_app_tsx",
       "type": "file",
       "x": 125,
       "y": 225,
       "width": 150,
       "height": 50,
-      "text": "Layout Component",
-      "url": "frontend/src/app/layout.tsx"
+      "text": "App.tsx",
+      "url": "src/frontend/src/dev/App.tsx"
     },
     {
-      "id": "server_index",
+      "id": "backend_index_ts",
       "type": "file",
       "x": 425,
       "y": 150,
       "width": 150,
       "height": 50,
-      "text": "Server Entrypoint",
-      "url": "server.ts"
+      "text": "index.ts",
+      "url": "src/index.ts"
+    },
+    {
+      "id": "backend_server_ts",
+      "type": "file",
+      "x": 425,
+      "y": 225,
+      "width": 150,
+      "height": 50,
+      "text": "server.ts",
+      "url": "src/lib/server.ts"
     },
     {
       "id": "whiteboard_service",
       "type": "file",
       "x": 425,
-      "y": 225,
+      "y": 300,
       "width": 150,
       "height": 50,
-      "text": "Whiteboard Service",
+      "text": "whiteboardService",
       "url": "src/lib/services/whiteboardService/index.ts"
     },
     {
       "id": "repomix",
       "type": "file",
-      "x": 275,
-      "y": 300,
+      "x": 250,
+      "y": 350,
       "width": 150,
       "height": 50,
-      "text": "Repomix",
+      "text": "repomix",
       "url": "repomix"
     }
   ]

@@ -4,26 +4,26 @@
   "description": "Generate whiteboard visualizations from code repositories",
   "type": "module",
   "bin": {
-    "iron-man": "./index.js"
+    "iron-man": "./bin/index.js"
   },
   "files": [
-    "index.js",
-    "lib/"
+    "bin/"
   ],
   "scripts": {
-    "build": "tsc && cd src/frontend && npm run build",
+    "build": "npm run build:frontend && tsc && npm run copy-frontend && chmod +x bin/index.js",
     "build:frontend": "cd src/frontend && npm run build",
+    "copy-frontend": "cp -r src/frontend/dist bin/frontend-dist",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.18",
-    "@types/express": "^5.0.2",
     "ai": "^4.3.16",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "repomix": "^0.3.8"
   },
   "devDependencies": {
+    "@types/express": "^5.0.2",
     "@types/node": "^20",
     "typescript": "^5"
   }

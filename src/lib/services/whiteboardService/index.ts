@@ -2,7 +2,8 @@ import { runCli, type CliOptions } from 'repomix';
 import { google } from '@ai-sdk/google';
 import { generateObject } from 'ai';
 import { z } from 'zod';
-import { whiteboardPrompt } from '../prompts.ts';
+import { whiteboardPrompt } from '../../prompts.js';
+import path from 'path';
 
 // Zod schema for JSON Canvas structure
 const jsonCanvasSchema = z.object({
@@ -38,18 +39,23 @@ const jsonCanvasSchema = z.object({
 });
 
 const whiteboardService = {
-    processDirectory: async () => {
+    processDirectory: async (targetPath: string) => {
+        console.log(`📁 Analyzing directory: ${targetPath}`);
+
         // Process current directory with custom options
         async function packProject() {
+            const outputPath = path.join(targetPath, 'summary-output.xml');
             const options = {
-                output: 'output.xml',
                 style: 'xml',
                 compress: true,
                 quiet: true
             } as CliOptions;
 
-            const result = await runCli(['.'], process.cwd(), options);
+            console.log('📦 Packing project files...');
+            console.log('TARGET PATH', targetPath);
+            const result = await runCli(['.'], targetPath, options);
             if (result) {
+                console.log(`✅ Project packed successfully`);
                 return result.packResult;
             }
             return null;
@@ -58,9 +64,16 @@ const whiteboardService = {
         const result = await packProject();
         if (result) {
             // Extract the actual text content from PackResult
-            const codebaseText = JSON.stringify(result)
+            const codebaseText = JSON.stringify(result);
+            console.log('🤖 Generating whiteboard visualization...');
             const canvas = await whiteboardService.getWhiteboardRaw(codebaseText);
-            console.log(JSON.stringify(canvas, null, 2));
+
+            // Save the canvas to a file in the target directory
+            const canvasPath = path.join(targetPath, 'whiteboard.canvas');
+            const fs = await import('fs/promises');
+            await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
+            console.log(`💾 Whiteboard saved to: ${canvasPath}`);
+
             return canvas;
         }
         return null;
@@ -68,10 +81,11 @@ const whiteboardService = {
     getWhiteboardRaw: async (codebaseText: string) => {
         const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
         if (!apiKey) {
-            throw new Error('GOOGLE_GENERATIVE_AI_API_KEY is not set');
+            throw new Error('GOOGLE_GENERATIVE_AI_API_KEY is not set in .env file');
         }
 
-        console.log('codebaseText', codebaseText)
+        // Remove the console.log of codebaseText as it's too verbose
+        console.log('📝 Sending codebase to AI for analysis...');
 
         try {
             const { object } = await generateObject({
@@ -85,9 +99,10 @@ const whiteboardService = {
                 },
             });
 
+            console.log('✨ AI analysis completed!');
             return object.canvas;
         } catch (error) {
-            console.error('Error generating whiteboard:', error);
+            console.error('❌ Error generating whiteboard:', error);
             throw error;
         }
     }

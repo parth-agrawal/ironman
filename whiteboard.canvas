@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": "frontend",
+      "type": "group",
+      "x": 100,
+      "y": 100,
+      "width": 200,
+      "height": 100,
+      "url": "https://nextjs.org",
+      "label": "Next.js application"
+    },
+    {
+      "id": "server",
+      "type": "group",
+      "x": 400,
+      "y": 100,
+      "width": 200,
+      "height": 80,
+      "url": "https://expressjs.com",
+      "label": "Express server"
+    },
+    {
+      "id": "frontend_page",
+      "type": "file",
+      "x": 125,
+      "y": 150,
+      "width": 150,
+      "height": 50,
+      "text": "Main Page",
+      "url": "frontend/src/app/page.tsx"
+    },
+    {
+      "id": "frontend_layout",
+      "type": "file",
+      "x": 125,
+      "y": 225,
+      "width": 150,
+      "height": 50,
+      "text": "Layout Component",
+      "url": "frontend/src/app/layout.tsx"
+    },
+    {
+      "id": "server_index",
+      "type": "file",
+      "x": 425,
+      "y": 150,
+      "width": 150,
+      "height": 50,
+      "text": "Server Entrypoint",
+      "url": "server.ts"
+    },
+    {
+      "id": "whiteboard_service",
+      "type": "file",
+      "x": 425,
+      "y": 225,
+      "width": 150,
+      "height": 50,
+      "text": "Whiteboard Service",
+      "url": "src/lib/services/whiteboardService/index.ts"
+    },
+    {
+      "id": "repomix",
+      "type": "file",
+      "x": 275,
+      "y": 300,
+      "width": 150,
+      "height": 50,
+      "text": "Repomix",
+      "url": "repomix"
+    }
+  ]
+}

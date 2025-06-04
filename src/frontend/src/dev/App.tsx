@@ -10,7 +10,8 @@ export default function App() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/canvas-content');
+        const response = await fetch('http://localhost:3010/api/canvas-content');
+        console.log('response', response);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

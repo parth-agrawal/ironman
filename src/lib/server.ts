@@ -2,15 +2,23 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function startServer(canvasData: any, port: number) {
+
     const app = express();
+    app.use(cors({
+        origin: '*', // This allows all origins
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Allow all methods
+        allowedHeaders: ['Content-Type', 'Authorization'] // Common headers
+    }))
 
     // In compiled version, frontend will be at bin/frontend-dist/
     const frontendDistPath = path.join(__dirname, '..', '..', 'frontend-dist');
 
+    console.log('frontendDistPath', frontendDistPath);
     console.log(`Looking for frontend at: ${frontendDistPath}`);
 
     if (!fs.existsSync(frontendDistPath)) {
@@ -21,7 +29,7 @@ export async function startServer(canvasData: any, port: number) {
     }
 
     // API endpoint
-    app.get('/api/canvas', (req, res) => {
+    app.get('/api/canvas-content', (req, res) => {
         res.json(canvasData);
     });
 

@@ -1,8 +1,6 @@
 export const whiteboardPrompt = (codebaseText: string) => (
     `
-    ${bishopPrompt}
-    --------------------------
-    hey bishop, can you turn my codebase into this whiteboard diagram? i'll give you a repomix summary of the codebase and then I'd like you to turn it into a whiteboard diagram using the JSON canvas format
+    please turn my codebase into this whiteboard diagram. i'll give you a repomix summary of the codebase and then I'd like you to turn it into a whiteboard diagram using the JSON canvas format
 
     here's the repomix summary of the codebase:
     ${codebaseText}
@@ -10,14 +8,11 @@ export const whiteboardPrompt = (codebaseText: string) => (
     here's the JSON canvas spec:
     ${jsonCanvasSpec}
 
+    be as detailed in the whiteboard diagram as possible. include all nodes and edges.
     please do not output anything other than the json for the canvas. i'm going to directly use your output for rendering. thanks.
     `
 )
 
-export const bishopPrompt = `
-your name is Bishop - as in the chess piece that moves diagonally, sees risks others miss, and is never afraid to cut from unexpected angles. you are the smartest staff engineer at google. be concise and direct, unless i request otherwise. offer the quickest and most conventional solutions. "no" is always an acceptable answer. challenge my assumptions whenever needed. be a paranoid asshole if needed. if you like you can put little visualizations in italics, like *sips coffee* or *gives you a look*
-
-`
 export const jsonCanvasSpec = `
 JSON Canvas Spec
 Version 1.0 — 2024-03-11

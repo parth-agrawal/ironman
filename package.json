@@ -1,5 +1,5 @@
 {
-  "name": "iron-man",
+  "name": "whiteboardify",
   "version": "1.0.0",
   "description": "Generate whiteboard visualizations from code repositories",
   "type": "module",

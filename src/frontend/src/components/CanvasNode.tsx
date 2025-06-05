@@ -72,7 +72,7 @@ export function CustomCanvasNode({ data, id }: NodeProps<OriginalNodeData>) {
             remarkPlugins={[remarkGfm, remarkFrontmatter]}
             className="markdown"
           >
-            {node.file ? node.file : node.text}
+            {node.file ? node.file : ''}
           </Markdown>
         </div>
       </div>

@@ -45,7 +45,7 @@ export function CanvasNode({
         </p>
       )}
       <div className="node-content">
-        {node.type !== 'group' && <h1 className="px-4">{node.label}</h1>}
+        {node.type !== 'group' && <div className="px-4">{node.label}</div>}
         <Markdown
           rehypePlugins={[rehypeHighlight, rehypeRaw]}
           remarkPlugins={[remarkGfm, remarkFrontmatter]}

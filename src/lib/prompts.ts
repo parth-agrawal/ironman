@@ -1,17 +1,14 @@
-export const whiteboardPrompt = (codebaseText: string) => (
-    `
+export const whiteboardPrompt = (codebaseText: string) =>
+  `
     please turn my codebase into this whiteboard diagram. i'll give you a repomix summary of the codebase and then I'd like you to turn it into a whiteboard diagram using the JSON canvas format
 
     here's the repomix summary of the codebase:
     ${codebaseText}
 
-    here's the JSON canvas spec:
-    ${jsonCanvasSpec}
 
     be as detailed in the whiteboard diagram as possible. include all nodes and edges.
     please do not output anything other than the json for the canvas. i'm going to directly use your output for rendering. thanks.
-    `
-)
+    `;
 
 export const jsonCanvasSpec = `
 JSON Canvas Spec
@@ -86,4 +83,107 @@ The canvasColor type is used to encode color data for nodes and edges. Colors at
 "5" cyan
 "6" purple
 Specific values for the preset colors are intentionally not defined so that applications can tailor the presets to their specific brand colors or color scheme.
-`
+`;
+
+export const responseJsonSchema = {
+  type: "object",
+  properties: {
+    nodes: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+          },
+          type: {
+            type: "string",
+            enum: ["text", "file", "link", "group"],
+          },
+          x: {
+            type: "integer",
+          },
+          y: {
+            type: "integer",
+          },
+          width: {
+            type: "integer",
+          },
+          height: {
+            type: "integer",
+          },
+          color: {
+            type: "string",
+          },
+          text: {
+            type: "string",
+          },
+          file: {
+            type: "string",
+          },
+          subpath: {
+            type: "string",
+          },
+          url: {
+            type: "string",
+          },
+          label: {
+            type: "string",
+          },
+          background: {
+            type: "string",
+          },
+          backgroundStyle: {
+            type: "string",
+            enum: ["cover", "ratio", "repeat"],
+          },
+        },
+        required: ["id", "type", "x", "y", "width", "height"],
+        additionalProperties: false,
+      },
+    },
+    edges: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+          },
+          fromNode: {
+            type: "string",
+          },
+          fromSide: {
+            type: "string",
+            enum: ["top", "right", "bottom", "left"],
+          },
+          fromEnd: {
+            type: "string",
+            enum: ["none", "arrow"],
+          },
+          toNode: {
+            type: "string",
+          },
+          toSide: {
+            type: "string",
+            enum: ["top", "right", "bottom", "left"],
+          },
+          toEnd: {
+            type: "string",
+            enum: ["none", "arrow"],
+          },
+          color: {
+            type: "string",
+          },
+          label: {
+            type: "string",
+          },
+        },
+        required: ["id", "fromNode", "toNode"],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ["nodes", "edges"],
+  additionalProperties: false,
+};

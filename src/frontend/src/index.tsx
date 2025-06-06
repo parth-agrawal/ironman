@@ -15,6 +15,7 @@ import 'reactflow/dist/style.css'; // Import React Flow styles
 
 import { CustomCanvasNode } from './components/CanvasNode'; // Your new custom node
 import './index.css'; // Your existing CSS, will need review
+import { Button } from './components/ui/button';
 
 interface CanvasProps {
   initialNodes: Node[];
@@ -38,7 +39,9 @@ export function Canvas({ initialNodes, initialEdges }: CanvasProps) {
   // The main div for React Flow needs a defined height.
   // Make sure its parent or itself has height: 100% or a fixed height.
   return (
-    <div style={{ width: '100vw', height: '100vh' }}> {/* Adjust as needed */}
+    <div 
+    className='flex'
+    style={{ width: '50vw', height: '100vh' }}> {/* Adjusted to 50% width */}
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}
@@ -53,7 +56,9 @@ export function Canvas({ initialNodes, initialEdges }: CanvasProps) {
           <Controls />
           <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> {/* Replaces your custom grid */}
         </ReactFlow>
+
       </ReactFlowProvider>
+      <Button>Click me</Button>
     </div>
   );
 }

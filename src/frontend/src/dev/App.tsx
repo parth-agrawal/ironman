@@ -48,8 +48,9 @@ export default function App() {
     return <div>No content available.</div>;
   }
 
-  // Pass nodes and edges to your main Canvas component
   return (
+    <>
       <Canvas initialNodes={rfNodes} initialEdges={rfEdges} />
+    </>
   );
 }

@@ -43,8 +43,30 @@ const responseZodSchema = z.object({
 });
 
 const whiteboardService = {
-  processDirectory: async (targetPath: string) => {
+  processDirectory: async (targetPath: string, isDev: boolean = false) => {
     console.log(`📁 Analyzing directory: ${targetPath}`);
+
+    // If dev flag is set, use mock canvas data
+    if (isDev) {
+      console.log(`🛠️  Dev mode: Using mock whiteboard data`);
+      const fs = await import("fs/promises");
+      const mockCanvasPath = path.join(targetPath, "mock.whiteboard.canvas");
+
+      try {
+        const mockData = await fs.readFile(mockCanvasPath, "utf-8");
+        const canvas = JSON.parse(mockData);
+
+        // Save the canvas to the regular whiteboard file
+        const canvasPath = path.join(targetPath, "whiteboard.canvas");
+        await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
+        console.log(`💾 Mock whiteboard copied to: ${canvasPath}`);
+
+        return canvas;
+      } catch (error) {
+        console.error(`❌ Error reading mock file: ${mockCanvasPath}`, error);
+        throw error;
+      }
+    }
 
     // Process current directory with custom options
     async function packProject() {

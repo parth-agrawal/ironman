@@ -1,0 +1,399 @@
+{
+  "edges": [
+    {
+      "fromNode": "index_ts",
+      "id": "e-index-whiteboard",
+      "toNode": "whiteboard_service",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Calls for canvas generation",
+      "toEnd": "arrow",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "index_ts",
+      "id": "e-index-server",
+      "toNode": "server_ts",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Starts Express server",
+      "toEnd": "arrow",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "whiteboard_service",
+      "id": "e-whiteboard-prompts",
+      "toNode": "prompts_ts",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Uses AI prompts",
+      "toEnd": "arrow",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "whiteboard_service",
+      "id": "e-whiteboard-repomix",
+      "toNode": "root_package_json",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Depends on Repomix, AI SDK",
+      "toEnd": "arrow",
+      "toSide": "right"
+    },
+    {
+      "fromNode": "server_ts",
+      "id": "e-server-frontend-serve",
+      "toNode": "frontend_group",
+      "color": "4",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Serves frontend build output",
+      "toEnd": "arrow",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "dev_app_tsx",
+      "id": "e-devapp-frontendindex",
+      "toNode": "frontend_index_tsx",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "left",
+      "label": "Uses Canvas component",
+      "toEnd": "arrow",
+      "toSide": "right"
+    },
+    {
+      "fromNode": "dev_app_tsx",
+      "id": "e-devapp-types",
+      "toNode": "frontend_types_ts",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Uses data types",
+      "toEnd": "arrow",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "frontend_index_tsx",
+      "id": "e-frontendindex-canvasnode",
+      "toNode": "canvas_node_tsx",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Registers custom node",
+      "toEnd": "arrow",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "frontend_index_tsx",
+      "id": "e-frontendindex-css",
+      "toNode": "frontend_index_css",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Imports styles",
+      "toEnd": "arrow",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "frontend_index_tsx",
+      "id": "e-frontendindex-reactflow",
+      "toNode": "frontend_package_json",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "bottom",
+      "label": "Uses React Flow (dependency)",
+      "toEnd": "arrow",
+      "toSide": "top"
+    },
+    {
+      "fromNode": "canvas_node_tsx",
+      "id": "e-canvasnode-types",
+      "toNode": "frontend_types_ts",
+      "color": "3",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Uses node/color types",
+      "toEnd": "arrow",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "frontend_package_json",
+      "id": "e-frontendpkg-frontendindex",
+      "toNode": "frontend_index_tsx",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "top",
+      "label": "Provides React Flow, React",
+      "toEnd": "arrow",
+      "toSide": "bottom"
+    },
+    {
+      "fromNode": "frontend_package_json",
+      "id": "e-frontendpkg-canvasnode",
+      "toNode": "canvas_node_tsx",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "top",
+      "label": "Provides react-markdown, rehype-highlight",
+      "toEnd": "arrow",
+      "toSide": "bottom"
+    },
+    {
+      "fromNode": "root_package_json",
+      "id": "e-rootpkg-backend",
+      "toNode": "backend_cli_group",
+      "color": "1",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Defines build/run scripts",
+      "toEnd": "arrow",
+      "toSide": "bottom"
+    },
+    {
+      "fromNode": "root_package_json",
+      "id": "e-rootpkg-frontend",
+      "toNode": "frontend_group",
+      "color": "4",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Triggers frontend build",
+      "toEnd": "arrow",
+      "toSide": "left"
+    },
+    {
+      "fromNode": "index_html",
+      "id": "e-html-devapp",
+      "toNode": "dev_app_tsx",
+      "color": "5",
+      "fromEnd": "none",
+      "fromSide": "top",
+      "label": "Entry point (dev mode)",
+      "toEnd": "arrow",
+      "toSide": "bottom"
+    },
+    {
+      "fromNode": "vite_config_ts",
+      "id": "e-viteconfig-frontend",
+      "toNode": "frontend_group",
+      "color": "4",
+      "fromEnd": "none",
+      "fromSide": "right",
+      "label": "Configures frontend build",
+      "toEnd": "arrow",
+      "toSide": "bottom"
+    }
+  ],
+  "nodes": [
+    {
+      "height": 1000,
+      "id": "root_project",
+      "type": "group",
+      "width": 1500,
+      "x": 0,
+      "y": 0,
+      "color": "6",
+      "label": "Iron Man Project: Codebase to Whiteboard"
+    },
+    {
+      "height": 850,
+      "id": "backend_cli_group",
+      "type": "group",
+      "width": 600,
+      "x": 50,
+      "y": 100,
+      "color": "1",
+      "label": "Backend/CLI Utility"
+    },
+    {
+      "height": 100,
+      "id": "index_ts",
+      "type": "file",
+      "width": 200,
+      "x": 100,
+      "y": 150,
+      "color": "5",
+      "label": "index.ts",
+      "text": "Main CLI Entrypoint: Parses arguments, orchestrates whiteboard generation and server startup."
+    },
+    {
+      "height": 120,
+      "id": "whiteboard_service",
+      "type": "file",
+      "width": 250,
+      "x": 100,
+      "y": 300,
+      "color": "5",
+      "label": "whiteboardService/index.ts",
+      "text": "AI Service: Uses Repomix and Google Gemini to generate JSON Canvas from codebase summary."
+    },
+    {
+      "height": 100,
+      "id": "prompts_ts",
+      "type": "file",
+      "width": 200,
+      "x": 400,
+      "y": 300,
+      "color": "3",
+      "label": "prompts.ts",
+      "text": "Defines AI prompts (e.g., whiteboardPrompt) for the generation service."
+    },
+    {
+      "height": 100,
+      "id": "server_ts",
+      "type": "file",
+      "width": 200,
+      "x": 100,
+      "y": 470,
+      "color": "5",
+      "label": "server.ts",
+      "text": "Express Server: Serves the frontend application and provides an API endpoint for canvas data."
+    },
+    {
+      "height": 100,
+      "id": "root_package_json",
+      "type": "file",
+      "width": 200,
+      "x": 100,
+      "y": 620,
+      "color": "3",
+      "label": "package.json (Root)",
+      "text": "Root project dependencies, build scripts, and CLI executable (`iron-man`) definition."
+    },
+    {
+      "height": 100,
+      "id": "root_readme",
+      "type": "file",
+      "width": 200,
+      "x": 100,
+      "y": 770,
+      "color": "3",
+      "label": "README.md (Root)",
+      "text": "Overall project overview, features, prerequisites, installation, and usage instructions."
+    },
+    {
+      "height": 850,
+      "id": "frontend_group",
+      "type": "group",
+      "width": 750,
+      "x": 700,
+      "y": 100,
+      "color": "4",
+      "label": "Frontend Application (React Flow)"
+    },
+    {
+      "height": 100,
+      "id": "frontend_index_tsx",
+      "type": "file",
+      "width": 200,
+      "x": 750,
+      "y": 150,
+      "color": "5",
+      "label": "index.tsx (Frontend)",
+      "text": "Main React Flow setup: Initializes canvas, manages nodes/edges, registers custom node types."
+    },
+    {
+      "height": 100,
+      "id": "canvas_node_tsx",
+      "type": "file",
+      "width": 200,
+      "x": 750,
+      "y": 300,
+      "color": "5",
+      "label": "CanvasNode.tsx",
+      "text": "Custom React Flow node component: Renders JSON Canvas node content (Markdown, text, files)."
+    },
+    {
+      "height": 100,
+      "id": "dev_app_tsx",
+      "type": "file",
+      "width": 200,
+      "x": 1000,
+      "y": 150,
+      "color": "5",
+      "label": "App.tsx (Dev)",
+      "text": "Development entry point: Transforms raw JSON Canvas data into React Flow compatible objects."
+    },
+    {
+      "height": 100,
+      "id": "frontend_types_ts",
+      "type": "file",
+      "width": 200,
+      "x": 1000,
+      "y": 300,
+      "color": "3",
+      "label": "types.ts (Frontend)",
+      "text": "Defines core interfaces for JSON Canvas `Node`, `Edge`, `CanvasContent`, and color mappings."
+    },
+    {
+      "height": 100,
+      "id": "frontend_index_css",
+      "type": "file",
+      "width": 200,
+      "x": 750,
+      "y": 450,
+      "color": "3",
+      "label": "index.css (Frontend)",
+      "text": "Global CSS styles for the React Flow canvas, nodes, and general frontend layout."
+    },
+    {
+      "height": 80,
+      "id": "vite_svg",
+      "type": "file",
+      "width": 150,
+      "x": 1000,
+      "y": 450,
+      "color": "3",
+      "label": "vite.svg",
+      "text": "Static asset: Vite logo SVG."
+    },
+    {
+      "height": 100,
+      "id": "frontend_package_json",
+      "type": "file",
+      "width": 200,
+      "x": 750,
+      "y": 600,
+      "color": "3",
+      "label": "package.json (Frontend)",
+      "text": "Frontend specific dependencies: React, React Flow, react-markdown, rehype-highlight, etc."
+    },
+    {
+      "height": 100,
+      "id": "frontend_readme",
+      "type": "file",
+      "width": 200,
+      "x": 1000,
+      "y": 600,
+      "color": "3",
+      "label": "README.md (Frontend)",
+      "text": "Frontend specific README: Details on React-jsoncanvas features and usage as a viewer."
+    },
+    {
+      "height": 100,
+      "id": "vite_config_ts",
+      "type": "file",
+      "width": 200,
+      "x": 750,
+      "y": 750,
+      "color": "3",
+      "label": "vite.config.ts",
+      "text": "Vite build configuration for the frontend application."
+    },
+    {
+      "height": 100,
+      "id": "index_html",
+      "type": "file",
+      "width": 200,
+      "x": 1000,
+      "y": 750,
+      "color": "3",
+      "label": "index.html",
+      "text": "HTML entry point for the React application, loads main.tsx."
+    }
+  ]
+}

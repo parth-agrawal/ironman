@@ -1,46 +1,9 @@
 import { Canvas } from '../index'
-import { CanvasContent, Node as AppNode, Edge as AppEdge } from '../types'
+import { CanvasContent } from '../types'
 import { useEffect, useState } from 'react';
-import { Node as RFNode, Edge as RFEdge, MarkerType } from 'reactflow';
+import { Node as RFNode, Edge as RFEdge } from 'reactflow';
+import { transformToReactFlowObjects } from '../utils';
 
-// Helper function to transform your data to React Flow format
-const transformToReactFlowObjects = (content: CanvasContent): { nodes: RFNode[], edges: RFEdge[] } => {
-  const rfNodes: RFNode[] = content.nodes.map((node: AppNode) => ({
-    id: node.id,
-    type: 'customNode', // We'll define this custom node type
-    position: { x: node.x, y: node.y },
-    data: {
-      label: node.label,
-      file: node.file,
-      text: node.text,
-      color: node.color,
-      type: node.type, // Original type
-      width: node.width,
-      height: node.height,
-    },
-    // React Flow will use these dimensions for the node
-    style: { width: node.width, height: node.height },
-  }));
-
-  const rfEdges: RFEdge[] = content.edges.map((edge: AppEdge) => ({
-    id: edge.id,
-    source: edge.fromNode,
-    target: edge.toNode,
-    sourceHandle: edge.fromSide, // Assumes your handles are named 'top', 'right', etc.
-    targetHandle: edge.toSide,
-    label: edge.label,
-    markerEnd: edge.toEnd === 'arrow' ? { type: MarkerType.ArrowClosed, color: 'lightgray' } : undefined,
-    markerStart: edge.fromEnd === 'arrow' ? { type: MarkerType.ArrowClosed, color: 'lightgray' } : undefined,
-    // For styling, you can use 'style' or 'className'
-    // React Flow has default edge types like 'default', 'smoothstep', 'step', 'straight'
-    // Your createPath is somewhat like 'smoothstep' but with specific straight line starts.
-    // For simplicity, start with 'smoothstep'. If the curve is critical, you might need a custom edge.
-    type: 'smoothstep',
-    style: { stroke: edge.color || 'lightgray', strokeWidth: 2 },
-  }));
-
-  return { nodes: rfNodes, edges: rfEdges };
-};
 
 export default function App() {
   const [rfNodes, setRfNodes] = useState<RFNode[]>([]);
@@ -86,5 +49,7 @@ export default function App() {
   }
 
   // Pass nodes and edges to your main Canvas component
-  return <Canvas initialNodes={rfNodes} initialEdges={rfEdges} />;
+  return (
+      <Canvas initialNodes={rfNodes} initialEdges={rfEdges} />
+  );
 }

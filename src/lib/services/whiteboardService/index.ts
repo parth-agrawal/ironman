@@ -2,7 +2,11 @@ import { runCli, type CliOptions } from "repomix";
 import { google } from "@ai-sdk/google";
 import { generateObject, generateText, jsonSchema } from "ai";
 import { z } from "zod";
-import { responseJsonSchema, whiteboardPrompt } from "../../prompts.js";
+import {
+  analyzeDiffsPrompt,
+  responseJsonSchema,
+  whiteboardPrompt,
+} from "../../prompts.js";
 import path from "path";
 import { CanvasContent } from "../../../frontend/src/types.js";
 
@@ -58,7 +62,7 @@ const whiteboardService = {
         const canvas = JSON.parse(mockData);
 
         // Save the canvas to the regular whiteboard file
-        const canvasPath = path.join(targetPath, "whiteboard.canvas");
+        const canvasPath = path.join(targetPath, "original.whiteboard.canvas");
         await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
         console.log(`💾 Mock whiteboard copied to: ${canvasPath}`);
 
@@ -96,7 +100,7 @@ const whiteboardService = {
       const canvas = await whiteboardService.getWhiteboardRaw(codebaseText);
 
       // Save the canvas to a file in the target directory
-      const canvasPath = path.join(targetPath, "whiteboard.canvas");
+      const canvasPath = path.join(targetPath, "original.whiteboard.canvas");
       const fs = await import("fs/promises");
       await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
       console.log(`💾 Whiteboard saved to: ${canvasPath}`);
@@ -146,10 +150,32 @@ const whiteboardService = {
       throw error;
     }
   },
-  saveWhiteboard: async (canvas: CanvasContent, targetPath: string) => {
+
+  saveUpdatedWhiteboard: async (canvas: CanvasContent, targetPath: string) => {
     const fs = await import("fs/promises");
-    const canvasPath = path.join(targetPath, "new.whiteboard.canvas");
+    const canvasPath = path.join(targetPath, "updated.whiteboard.canvas");
     await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
+  },
+  loadOriginalWhiteboard: async (targetPath: string) => {
+    const fs = await import("fs/promises");
+    const canvasPath = path.join(targetPath, "original.whiteboard.canvas");
+    const canvas = await fs.readFile(canvasPath, "utf-8");
+    return JSON.parse(canvas);
+  },
+  analyzeWhiteboardChanges: async ({
+    originalCanvas,
+    updatedCanvas,
+  }: {
+    originalCanvas: CanvasContent;
+    updatedCanvas: CanvasContent;
+  }) => {
+    const prompt = analyzeDiffsPrompt({ originalCanvas, updatedCanvas });
+    console.log("prompt", prompt);
+    const { text } = await generateText({
+      model: google("gemini-2.5-flash-preview-05-20"),
+      prompt,
+    });
+    return text;
   },
 };
 

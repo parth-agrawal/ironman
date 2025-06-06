@@ -1,3 +1,5 @@
+import { CanvasContent } from "../frontend/src/types";
+
 export const whiteboardPrompt = (codebaseText: string) =>
   `
     please turn my codebase into this whiteboard diagram. i'll give you a repomix summary of the codebase and then I'd like you to turn it into a whiteboard diagram using the JSON canvas format
@@ -8,7 +10,25 @@ export const whiteboardPrompt = (codebaseText: string) =>
 
     be as detailed in the whiteboard diagram as possible. include all nodes and edges.
     please do not output anything other than the json for the canvas. i'm going to directly use your output for rendering. thanks.
-    `;
+  `;
+
+export const analyzeDiffsPrompt = ({
+  originalCanvas,
+  updatedCanvas,
+}: {
+  originalCanvas: CanvasContent;
+  updatedCanvas: CanvasContent;
+}) => `
+you will be given two visual representations of a codebase, an old state and a new state. 
+please describe in detail what changes need to be made in files in order to update the codebase to the new state.
+
+Old state:
+${JSON.stringify(originalCanvas)}
+
+New state:
+${JSON.stringify(updatedCanvas)}
+
+`;
 
 export const jsonCanvasSpec = `
 JSON Canvas Spec

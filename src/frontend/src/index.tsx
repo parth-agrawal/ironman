@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import ReactFlow, {
   Controls,
   Background,
@@ -32,37 +32,52 @@ export function Canvas({ initialNodes, initialEdges }: CanvasProps) {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const { getNodes, getEdges } = useReactFlow();
+  const [analysis, setAnalysis] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onConnect = useCallback(
     (params: Connection | Edge) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  const handleSave = useCallback(() => {
-    const currentRFNodes = getNodes();
-    const currentRFEdges = getEdges();
+  const handleSave = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const currentRFNodes = getNodes();
+      const currentRFEdges = getEdges();
 
-    const canvasState = transformFromReactFlowObjects(currentRFNodes, currentRFEdges);
+      const canvasState = transformFromReactFlowObjects(currentRFNodes, currentRFEdges);
 
-    console.log('Ready to save:', canvasState);
+      console.log('Ready to save:', canvasState);
 
-    fetch('http://localhost:3010/api/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(canvasState) // Send the correctly formatted object
-    })
-    .then(res => {
-        if (!res.ok) console.error("Save failed with status:", res.status);
-    })
-    .catch(err => console.error("Save failed:", err));
+      const response = await fetch('http://localhost:3010/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(canvasState) // Send the correctly formatted object
+      })
+
+      if (response.ok) {
+        const analysis = await response.text();
+        console.log('Analysis:', analysis);
+        setAnalysis(analysis);
+      } else {
+        console.error('Error saving:', response.status);
+        setAnalysis('Error saving changes');
+      }
+    } catch (error) {
+      console.error('Error saving:', error);
+      setAnalysis('Error saving changes');
+    } finally {
+      setIsLoading(false);
+    }
   }, [getNodes, getEdges]);
 
   // The main div for React Flow needs a defined height.
   // Make sure its parent or itself has height: 100% or a fixed height.
   return (
     <div 
-    className='flex'
-    style={{ width: '50vw', height: '100vh' }}> {/* Adjusted to 50% width */}
+    className='flex w-full'
+    style={{ width: '100vw', height: '100vh' }}> {/* Adjusted to 50% width */}
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -77,7 +92,15 @@ export function Canvas({ initialNodes, initialEdges }: CanvasProps) {
           <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> {/* Replaces your custom grid */}
         </ReactFlow>
 
-      <Button onClick={handleSave}>Save</Button>
+      <div className='flex flex-col gap-2 w-full max-w-[400px]'>
+
+        <Button onClick={handleSave} disabled={isLoading}>
+          {isLoading ? 'Saving...' : 'Save'}
+        </Button>
+        <div>          
+          {analysis}
+        </div>
+      </div>
     </div>
   );
 }

@@ -38,10 +38,14 @@ export async function startServer(
   });
 
   app.post("/api/save", async (req, res) => {
-    const canvas: CanvasContent = req.body;
-    console.log("canvas", canvas);
-    await whiteboardService.saveWhiteboard(canvas, targetPath);
-    res.status(200).send("Whiteboard saved");
+    const updatedCanvas: CanvasContent = req.body;
+    await whiteboardService.saveUpdatedWhiteboard(updatedCanvas, targetPath);
+    const analysis = await whiteboardService.analyzeWhiteboardChanges({
+      originalCanvas: canvasData,
+      updatedCanvas,
+    });
+    console.log("analysis", analysis);
+    res.status(200).send(analysis);
   });
 
   // Catch-all route for SPA (fix the Express 5.x issue)

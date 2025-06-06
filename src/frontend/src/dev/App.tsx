@@ -1,7 +1,7 @@
 import { Canvas } from '../index'
 import { CanvasContent } from '../types'
 import { useEffect, useState } from 'react';
-import { Node as RFNode, Edge as RFEdge } from 'reactflow';
+import { Node as RFNode, Edge as RFEdge, ReactFlowProvider } from 'reactflow';
 import { transformToReactFlowObjects } from '../utils';
 
 
@@ -50,7 +50,9 @@ export default function App() {
 
   return (
     <>
-      <Canvas initialNodes={rfNodes} initialEdges={rfEdges} />
+      <ReactFlowProvider>
+        <Canvas initialNodes={rfNodes} initialEdges={rfEdges} />
+      </ReactFlowProvider>
     </>
   );
 }

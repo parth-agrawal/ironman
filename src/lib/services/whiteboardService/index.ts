@@ -4,6 +4,7 @@ import { generateObject, generateText, jsonSchema } from "ai";
 import { z } from "zod";
 import { responseJsonSchema, whiteboardPrompt } from "../../prompts.js";
 import path from "path";
+import { CanvasContent } from "../../../frontend/src/types.js";
 
 // Zod schema for JSON Canvas structure
 const responseZodSchema = z.object({
@@ -144,6 +145,11 @@ const whiteboardService = {
       console.error("❌ Error generating whiteboard:", error);
       throw error;
     }
+  },
+  saveWhiteboard: async (canvas: CanvasContent, targetPath: string) => {
+    const fs = await import("fs/promises");
+    const canvasPath = path.join(targetPath, "new.whiteboard.canvas");
+    await fs.writeFile(canvasPath, JSON.stringify(canvas, null, 2));
   },
 };
 

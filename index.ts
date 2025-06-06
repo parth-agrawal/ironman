@@ -119,10 +119,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Change to the target directory for context, but .env loading is from there explicitly
-  // process.chdir(targetPath); // This was original behavior. Let's see if needed.
-  // whiteboardService and repomix might rely on cwd.
-
   // Load .env from the target directory
   const envPath = path.join(targetPath, ".env");
   if (fs.existsSync(envPath)) {
@@ -151,16 +147,15 @@ async function main() {
 
       if (options.serve) {
         try {
-          await startServer(result, options.port);
-          // The script will hang here due to startServer's unresolved promise, which is desired for a running server.
+          await startServer(result, options.port, targetPath);
         } catch (serverError) {
           console.error("❌ Server could not be started.", serverError);
-          process.exit(1); // Exit if server fails to start
+          process.exit(1);
         }
       } else {
         console.log("✅ Whiteboard data generated successfully.");
         console.log("Run without --no-serve to start the web server.");
-        process.exit(0); // Exit if not serving
+        process.exit(0);
       }
     } else {
       console.log("❌ Failed to generate whiteboard");

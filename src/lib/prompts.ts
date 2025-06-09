@@ -21,6 +21,7 @@ export const analyzeDiffsPrompt = ({
 }) => `
 you will be given two visual representations of a codebase, an old state and a new state. 
 please describe in detail what changes need to be made in files in order to update the codebase to the new state.
+If there are no changes other than cosmetic, please keep the description very concise.
 
 Old state:
 ${JSON.stringify(originalCanvas)}

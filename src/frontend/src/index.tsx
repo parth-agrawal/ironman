@@ -17,6 +17,7 @@ import { CustomCanvasNode } from './components/CanvasNode'; // Your new custom n
 import './index.css'; // Your existing CSS, will need review
 import { Button } from './components/ui/button';
 import { transformFromReactFlowObjects } from './utils';
+import Markdown from 'react-markdown';
 
 interface CanvasProps {
   initialNodes: Node[];
@@ -97,8 +98,8 @@ export function Canvas({ initialNodes, initialEdges }: CanvasProps) {
         <Button onClick={handleSave} disabled={isLoading}>
           {isLoading ? 'Saving...' : 'Save'}
         </Button>
-        <div>          
-          {analysis}
+        <div>      
+          <Markdown>{analysis}</Markdown>
         </div>
       </div>
     </div>

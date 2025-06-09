@@ -172,7 +172,7 @@ const whiteboardService = {
     const prompt = analyzeDiffsPrompt({ originalCanvas, updatedCanvas });
     console.log("prompt", prompt);
     const { text } = await generateText({
-      model: google("gemini-2.5-flash-preview-05-20"),
+      model: google("gemini-2.0-flash"),
       prompt,
     });
     return text;
